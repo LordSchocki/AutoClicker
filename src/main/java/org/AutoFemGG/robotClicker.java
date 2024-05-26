@@ -15,12 +15,14 @@ public class robotClicker {
 
 
     public int calculateDelay(float cpsPerSecond){ //method to convert the cps to ms
-        float delayCps = 1000 / cpsPerSecond; //to get the cps just 1000ms / cps for example, 2 would be a click every 500ms
+        float delayCps = 1000 / cpsPerSecond; //to get the cps just 1000ms 2 cps,
+        // for example, 2 would be a click every 500ms
         return Math.round(delayCps); //round it to a full int for the robot
     }
 
 
     public void startLeftClicking(JTextField cpsField){ //method to start left-clicking
+        isEnabled = true;
         try{
             Float.parseFloat(cpsField.getText());
         } catch (NumberFormatException e){
@@ -40,28 +42,25 @@ public class robotClicker {
         }
 
 
-
-        new Thread(new Runnable() { //create a new thread for better performance
-            @Override
-            public void run() {
-                try{
-                    robot = new Robot();
-                    int cpsDelay = calculateDelay(cpsNumber); //creating the delay outside the loop to save resources
+        //create a new thread for better performance
+        new Thread(() -> {
+            try{
+                robot = new Robot();
+                int cpsDelay = calculateDelay(cpsNumber); //creating the delay outside the loop to save resources
 
 
 
-                    while(isEnabled){
-                       robot.mousePress(InputEvent.BUTTON1_DOWN_MASK); //press
-                       robot.delay(cpsDelay); //then wait
-                       robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK); //then repeat and release
-                      }
+                while(isEnabled){
+                   robot.mousePress(InputEvent.BUTTON1_DOWN_MASK); //press
+                   robot.delay(cpsDelay); //then wait
+                   robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK); //then repeat and release
+                  }
 
 
-                }  catch (Exception ex){
-                    System.out.println(ex.getMessage());
-                }
-
+            }  catch (Exception ex){
+                System.out.println(ex.getMessage());
             }
+
         }).start();
 
 
@@ -80,26 +79,23 @@ public class robotClicker {
             return;
         }
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try{
-                    robot = new Robot();
-                    int cpsDelay = calculateDelay(cpsNumber);
+        new Thread(() -> {
+            try{
+                robot = new Robot();
+                int cpsDelay = calculateDelay(cpsNumber);
 
 
-                    while(isEnabled){
-                        robot.mousePress(InputEvent.BUTTON3_DOWN_MASK);
-                        robot.delay(cpsDelay);
-                        robot.mouseRelease(InputEvent.BUTTON3_DOWN_MASK);
-                    }
-
-
-                }  catch (Exception ex){
-                    System.out.println(ex.getMessage());
+                while(isEnabled){
+                    robot.mousePress(InputEvent.BUTTON3_DOWN_MASK);
+                    robot.delay(cpsDelay);
+                    robot.mouseRelease(InputEvent.BUTTON3_DOWN_MASK);
                 }
 
+
+            }  catch (Exception ex){
+                System.out.println(ex.getMessage());
             }
+
         }).start();
 
 

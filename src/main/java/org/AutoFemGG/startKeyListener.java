@@ -4,7 +4,7 @@ import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyListener;
 
 import javax.swing.*;
-import java.awt.*;
+
 
 public class startKeyListener implements NativeKeyListener {
 
@@ -21,9 +21,9 @@ public class startKeyListener implements NativeKeyListener {
         if (nativeEvent.getKeyCode() == NativeKeyEvent.VC_T){
 
 
-            robotClicker.isEnabled = true;
+
             clicker.startLeftClicking(cpsTextField);
-            ClickerGUI.startButton.setEnabled(false);
+
 
         }
     }
